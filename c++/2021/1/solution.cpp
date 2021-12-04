@@ -32,8 +32,8 @@ vector<T> slice(vector<T> &v, int from, int to) {
 template<typename T>
 vector<vector<T>> window(vector<T> &v, int size) {
     vector<vector<T>> tuples;
-    tuples.reserve(v.size() - 2);
-    for (int i = 0; i < v.size() - 2; i++)
+    tuples.reserve(v.size() - size + 1);
+    for (int i = 0; i < v.size() - size + 1; i++)
         tuples.push_back(slice(v, i, i + size));
     return tuples;
 }
@@ -70,7 +70,7 @@ int runPart2(vector<string> &lines) {
 
 int main() {
     vector<string> lines = readInputLines();
-    int count = runPart1Simple(lines);
+    int count = runPart2(lines);
     cout << count << endl;
     return 0;
 }
