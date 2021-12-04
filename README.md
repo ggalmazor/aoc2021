@@ -100,6 +100,39 @@ For this challenge I choose the tradeoff of storing numbers twice in the board's
 
 That way I could get away with a `Line` class that worked both for rows and columns. The `Board` class would act as a line aggregator, with two collections of them: one for `rows` and another one for `cols`.
 
+To build the boards I got to reuse the `window` function I used in Day 1. I had to abstract away the step size to iterate the input array while extracting the windows from input, which completed the "sliding window iterator" implementation nicely:
+
+```javascript
+function window(list, size, step = 1) {
+  const output = [];
+  for (let i = 0; i < list.length - size + 1; i += step)
+    output.push(list.slice(i, i + size));
+  return output;
+}
+```
+
+With this change, I could extract 5 line windows every 6 lines from the input lines:
+
+```
+                38 92 26 65 77
+                59 39  4 57 16
+                91 45 35 36  2
+                34 40 89  8 62
+                96 28 31 88 33
+                
+             ⌜  50 79 88 34  0  ⌝                
+             |  56 46  5 17 31  |
+             |  29  6 38 78 68  | window size: 5
+step size: 6 |  75 57 15 44 83  |
+             |  89 45 43 85 72  ⌟
+             ⌞
+                29  8 56 15 33
+                 7 14 51 88 67
+                91 32 62 18 73
+                53 63 49 34 46
+                70 25 77 87 31
+```
+
 Honestly this time I was more interested in representing the bingo boards in console, so I used `chalk` to add some colors for the fun of it :)
 
 Both parts are working but I'm not very happy with the duplication of code I created. I didn't find a nice way of reusing more code between parts. 
