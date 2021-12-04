@@ -4,7 +4,6 @@ import {sum, toInt} from "../lib/numbers.mjs";
 import {window} from "../lib/lists.mjs";
 import {Board} from "./board.mjs";
 
-
 const lines = readLines(import.meta.url)
 
 function drawNumbers(lines) {
@@ -15,7 +14,7 @@ function goForBingo(bingoedBoard, draw) {
   const unmarkedNumbers = bingoedBoard.unmarkedNumbers();
   const unmarkedNumbersSum = unmarkedNumbers.reduce(sum);
   const score = unmarkedNumbersSum * draw;
-  
+
   console.log(chalk.bgWhiteBright("Bingo!"))
   bingoedBoard.render();
   console.log("Unmarked numbers: ", unmarkedNumbers.join(","), "(sum: ", unmarkedNumbersSum, ")");
