@@ -135,4 +135,6 @@ step size: 6 |  75 57 15 44 83  |
 
 Honestly this time I was more interested in representing the bingo boards in console, so I used `chalk` to add some colors for the fun of it :)
 
+![image](https://user-images.githubusercontent.com/205913/144708471-59b4ac9f-439f-44bf-a77d-7ee4b3d2fe18.png)
+
 Both parts are working but I'm not very happy with the duplication of code I created. I didn't find a nice way of reusing more code between parts. 
