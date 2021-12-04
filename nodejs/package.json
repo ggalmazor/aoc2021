@@ -1,0 +1,17 @@
+{
+  "name": "adventofcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "NODE_OPTIONS=--experimental-vm-modules node aoc.mjs",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chalk": "^5.0.0",
+    "colors": "^1.4.0",
+    "jest": "^27.3.1"
+  }
+}
