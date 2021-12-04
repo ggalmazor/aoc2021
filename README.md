@@ -4,7 +4,7 @@
 
 [nodejs/1/solution.mjs](nodejs/1/solution.mjs)
 
-[c++/1/solution.cpp](c%2B%2B/1/solution.cpp)
+[c++/1/solution.cpp](c++/1/solution.cpp)
 
 I initially solved the problem using a sliding window because I really like them. However, I had to implement my own version of a sliding window array slicer because NodeJS doesn't come with one. 
 
@@ -53,7 +53,7 @@ vector<vector<T>> window(vector<T> &v, int size) {
 ## Day 2
 
 [nodejs/2/solution.mjs](nodejs/2/solution.mjs)
-[c++/2/solution.cpp](c%2B%2B/2/solution.cpp)
+[c++/2/solution.cpp](c++/2/solution.cpp)
 
 For the first part I tried a super naive approach of counting the ups and downs and then subtracting them to compute the depth. I knew this approach was very fragile and probably would bite me on part 2, but I thought it was funny and went for it. 
 
