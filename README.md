@@ -90,13 +90,13 @@ Reading this expression hurts a bit though :D. Here's a step by step explanation
 
 To compute the `epsilonRate` I computed the bitwise complement of the `gammaRate`. My first attempt involved naively aggregating as many `1`s into a string as the length of the binary representation of the `gammaRate` value to produce the `11...11` mask I needed , and then I realized I could achieve the same with `Math.pow(2, length)-1` that would produce the number I needed for the mask in a more elegant way.
 
-For the second part of the challenge I applied iteratively the same "bias" concept while filtering out lines that didn't match the current search criteria (search for the most or least frequent value in a bit position) 
+For the second part of the challenge I applied iteratively the same "bias" concept while filtering out lines that didn't match the current search criteria (search for the most or least frequent value in that bit position) 
 
 ## Day 4
 
 [nodejs/4/solution.mjs](nodejs/4/solution.mjs)
 
-For this challenge I choose the tradeoff of storing numbers twice in the board's state and having to involve more loops to get a simpler solution. I choose to store each number in the board both in its row and column internal state representations.
+For this challenge I chose the tradeoff of storing numbers twice in the board's state and having to involve more loops to get a simpler solution. I choose to store each number in the board both in its row and column internal state representations.
 
 That way I could get away with a `Line` class that worked both for rows and columns. The `Board` class would act as a line aggregator, with two collections of them: one for `rows` and another one for `cols`.
 
