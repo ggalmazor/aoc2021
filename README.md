@@ -2,8 +2,9 @@
 
 ## Day 1
 
-[nodejs/1/solution.mjs](solution.mjs)
-[c++/1/solution.cpp](solution.cpp)
+[nodejs/1/solution.mjs](nodejs/1/solution.mjs)
+
+[c++/1/solution.cpp](c++/1/solution.cpp)
 
 I initially solved the problem using a sliding window because I really like them. However, I had to implement my own version of a sliding window array slicer because NodeJS doesn't come with one. 
 
@@ -51,8 +52,8 @@ vector<vector<T>> window(vector<T> &v, int size) {
 
 ## Day 2
 
-[nodejs/2/solution.mjs](solution.mjs)
-[c++/2/solution.cpp](solution.cpp)
+[nodejs/2/solution.mjs](nodejs/2/solution.mjs)
+[c++/2/solution.cpp](c++/2/solution.cpp)
 
 For the first part I tried a super naive approach of counting the ups and downs and then subtracting them to compute the depth. I knew this approach was very fragile and probably would bite me on part 2, but I thought it was funny and went for it. 
 
@@ -62,7 +63,7 @@ For part 2 I had to throw away my first approach because I needed to keep a runn
 
 ## Day 3
 
-[nodejs/3/solution.mjs](solution.mjs)
+[nodejs/3/solution.mjs](nodejs/3/solution.mjs)
 
 For this challenge I wanted to avoid looping over data all the time and I found a way of computing the "bias" towards `1` or `0` of each bit position by replacing `0` bits with a `-1` and then summing up all the values of each bit position across all data. If the result for a bit position is positive, then there's a bias towards binary `1` (there are more `1`s in that position). If the result is negative, there's a bias for binary `0`, and if the result is `0`, then there's no bias.
 
@@ -93,7 +94,7 @@ For the second part of the challenge I applied iteratively the same "bias" conce
 
 ## Day 4
 
-[nodejs/4/solution.mjs](solution.mjs)
+[nodejs/4/solution.mjs](nodejs/4/solution.mjs)
 
 For this challenge I choose the tradeoff of storing numbers twice in the board's state and having to involve more loops to get a simpler solution. I choose to store each number in the board both in its row and column internal state representations.
 
