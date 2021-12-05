@@ -141,6 +141,8 @@ Both parts are working but I'm not very happy with the duplication of code I cre
 
 ## Day 5
 
+[nodejs/5/solution.mjs](nodejs/5/solution.mjs)
+
 This one was very fun to solve overall but I got a bit frustrated handling all the loops to iterate over coordinates until I decided to implement the `range` function to abstract away concerns about the direction of the range:
 
 ```javascript
