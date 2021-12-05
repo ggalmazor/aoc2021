@@ -138,3 +138,35 @@ Honestly this time I was more interested in representing the bingo boards in con
 ![image](https://user-images.githubusercontent.com/205913/144708471-59b4ac9f-439f-44bf-a77d-7ee4b3d2fe18.png)
 
 Both parts are working but I'm not very happy with the duplication of code I created. I didn't find a nice way of reusing more code between parts. 
+
+## Day 5
+
+This one was very fun to solve overall but I got a bit frustrated handling all the loops to iterate over coordinates until I decided to implement the `range` function to abstract away concerns about the direction of the range:
+
+```javascript
+function range(from, to, inclusiveTo = true) {
+  const numbers = [];
+  const step = (to - from) >= 0 ? 1 : -1;
+  let n = from;
+  const requestedLength = inclusiveTo ? Math.abs(to - from) + 1 : Math.abs(to - from);
+  while (numbers.length !== requestedLength) {
+    numbers.push(n);
+    n += step;
+  }
+  return numbers;
+}
+```
+I'm sure there are better implementations, and I'm aware that this implementation is very limited (no option to set a step size, etc) but it supports what I need to do now and I can expand it in the future if needed.
+
+I also had a lot of fun plotting the map into a canvas to produce a png image. This is the 10 by 10 example from the challenge's description:
+
+And here are the two maps of both parts of the challenge
+
+I used a color palette with 5 colors:
+- 0 gets grey
+- 1 gets light yellow
+- 2 gets orange
+- 3 gets orange-red
+- 4 or more get red
+
+I did a couple of things that aren't really needed such as the plotting of the map, or being able to change the criteria to produce the final result of each part :shrug:

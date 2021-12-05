@@ -12,6 +12,8 @@
   "devDependencies": {
     "chalk": "^5.0.0",
     "colors": "^1.4.0",
-    "jest": "^27.3.1"
-  }
+    "jest": "^27.3.1",
+    "pureimage": "^0.3.6"
+  },
+  "dependencies": {}
 }
