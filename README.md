@@ -6,7 +6,7 @@
 
 [C++ solution.cpp](c++/1/solution.cpp)
 
-[Java solution](java/com/github/ggalmazor/aoc2021/days/Day1.java)
+[Java solution](java/app/src/main/java/com/github/ggalmazor/aoc2021/days/Day1.java)
 
 I initially solved the problem using a sliding window because I really like them. However, I had to implement my own version of a sliding window array slicer because NodeJS doesn't come with one. 
 
