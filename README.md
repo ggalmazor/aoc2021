@@ -179,3 +179,34 @@ I used a color palette with 5 colors:
 - 4 or more get red
 
 I did a couple of things that aren't really needed such as the plotting of the map, or being able to change the criteria to produce the final result of each part :shrug:
+
+## Day 6
+
+Phew! That took a while.
+
+I solved part 1 with a naive brute force approach where I iterate over every fish in the school and compute a new school for every day I need to, which proved to be a bad idea for part 2.
+
+I tried to introduce several optimizations and workarounds for the eventual stacktrace or array size restrictions I was hitting before I definitely threw away my initial approach.
+
+It was clear that iterating fishes * days wasn't going to produce a result in a reasonable amount of time.
+
+Finally, I realized that the behavior has a cyclic feature:
+- At day 0, fish that have 0 days initially in their timer breed another fish that will breed in 9 days.
+- At day 1, fish that have 1 days initially in their timer breed another fish that will breed in 10 days.
+- At day 2, fish that have 2 days initially in their timer breed another fish that will breed in 11 days.
+- At day 3, fish that have 3 days initially in their timer breed another fish that will breed in 12 days.
+- At day 4, fish that have 4 days initially in their timer breed another fish that will breed in 13 days.
+- At day 5, fish that have 5 days initially in their timer breed another fish that will breed in 14 days.
+- At day 6, fish that have 6 days initially in their timer breed another fish that will breed in 15 days.
+- At day 7, fish that have 7 days initially in their timer breed another fish that will breed in 16 days.
+- At day 8, fish that have 8 days initially in their timer breed another fish that will breed in 17 days.
+- At day 0+9, fish that have 0+9 days initially in their timer breed another fish that will breed in 9+9 days.
+- At day 1+9, fish that have 1+9 days initially in their timer breed another fish that will breed in 10+9 days.
+- At day 2+9, fish that have 2+9 days initially in their timer breed another fish that will breed in 11+9 days.
+- etc, so on, so forth
+
+At day 9 (aka 0+9), a cycle of length 9 starts again, which means that we can express everyday in terms of its `mod 9`.
+
+Once I realized about this I pivoted towards having a count of "number of fish that breed at a particular breeding slot (day mod 9)". With this, every day, I could just increment the fish in the slot of `(today + 7) mod 9` by the number of fish breeding `today mod 9`.
+
+Not sure if this explanation will make sense to anybody other than me, though :shrug: :sweat_smile:

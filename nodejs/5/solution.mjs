@@ -22,7 +22,7 @@ function part2(lines) {
 }
 
 export default function run() {
-  console.log("Day 4:")
+  console.log("Day 5:")
   let result1 = part1(lines);
   let result2 = part2(lines);
   console.log("  (1) Result:", result1);
