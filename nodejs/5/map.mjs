@@ -20,7 +20,7 @@ export class Map {
   }
 
   render(filename) {
-    const img = PImage.make(this.maxX, this.maxY);
+    const img = PImage.make(this.maxX + 1, this.maxY + 1);
     for (let x of range(0, this.maxX))
       for (let y of range(0, this.maxY))
         img.setPixelRGBA(x, y, this.color(this.getValue(x, y)));
