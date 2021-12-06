@@ -191,18 +191,13 @@ I tried to introduce several optimizations and workarounds for the eventual stac
 It was clear that iterating fishes * days wasn't going to produce a result in a reasonable amount of time.
 
 Finally, I realized that the behavior has a cyclic nature:
-- At day 0, fish that have 0 days initially in their timer breed another fish that will breed in 9 days.
-- At day 1, fish that have 1 days initially in their timer breed another fish that will breed in 10 days.
-- At day 2, fish that have 2 days initially in their timer breed another fish that will breed in 11 days.
-- At day 3, fish that have 3 days initially in their timer breed another fish that will breed in 12 days.
-- At day 4, fish that have 4 days initially in their timer breed another fish that will breed in 13 days.
-- At day 5, fish that have 5 days initially in their timer breed another fish that will breed in 14 days.
-- At day 6, fish that have 6 days initially in their timer breed another fish that will breed in 15 days.
-- At day 7, fish that have 7 days initially in their timer breed another fish that will breed in 16 days.
-- At day 8, fish that have 8 days initially in their timer breed another fish that will breed in 17 days.
-- At day 0+9, fish that have 0+9 days initially in their timer breed another fish that will breed in 9+9 days.
-- At day 1+9, fish that have 1+9 days initially in their timer breed another fish that will breed in 10+9 days.
-- At day 2+9, fish that have 2+9 days initially in their timer breed another fish that will breed in 11+9 days.
+- Today + 0, fish that have 0 days initially in their timer, breed another fish that will breed in 0 + 9 days. They, in turn, breed again in 0 + 7 days. 
+- Today + 1, fish that have 1 days initially in their timer, breed another fish that will breed in 1 + 9 days. They, in turn, breed again in 1 + 7 days.
+- Today + 2, fish that have 2 days initially in their timer, breed another fish that will breed in 2 + 9 days. They, in turn, breed again in 2 + 7 days.
+- ...
+- Today + 8, fish that have 8 days initially in their timer, breed another fish that will breed in 8 + 9 days. They, in turn, breed again in 8 + 7 days.
+- Today + 0 + 9, fish that have 0 + 9 days initially in their timer, breed another fish that will breed in 0 + 9 + 9 days. They, in turn, breed again in 0 + 9 + 7 days.
+- Today + 1 + 9, fish that have 1 + 9 days initially in their timer, breed another fish that will breed in 1 + 9 + 9 days. They, in turn, breed again in 1 + 9 + 7 days.
 - etc, so on, so forth
 
 At day 9 (aka 0+9), a cycle of length 9 starts again, which means that we can express everyday in terms of its `mod 9`.

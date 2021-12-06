@@ -16,9 +16,8 @@ export function schoolSizeAfterDays(school, days) {
 
   range(0, days, false).forEach(day => {
     const slotThatBreedsToday = day % 9;
-    const targetSlotForNewFish = (slotThatBreedsToday + 7) % 9;
-    const numberOfNewFish = breedingSlots[slotThatBreedsToday];
-    breedingSlots[targetSlotForNewFish] += numberOfNewFish;
+    const newSlot = (slotThatBreedsToday + 7) % 9;
+    breedingSlots[newSlot] += breedingSlots[slotThatBreedsToday];
   });
   return breedingSlots.reduce(sum);
 }
