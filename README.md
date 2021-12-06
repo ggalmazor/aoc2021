@@ -186,11 +186,11 @@ Phew! That took a while.
 
 I solved part 1 with a naive brute force approach where I iterate over every fish in the school and compute a new school for every day I need to, which proved to be a bad idea for part 2.
 
-I tried to introduce several optimizations and workarounds for the eventual stacktrace or array size restrictions I was hitting before I definitely threw away my initial approach.
+I tried to introduce several optimizations and workarounds for the eventual stacktrace or array size restrictions I was hitting before throwing away my initial approach.
 
 It was clear that iterating fishes * days wasn't going to produce a result in a reasonable amount of time.
 
-Finally, I realized that the behavior has a cyclic feature:
+Finally, I realized that the behavior has a cyclic nature:
 - At day 0, fish that have 0 days initially in their timer breed another fish that will breed in 9 days.
 - At day 1, fish that have 1 days initially in their timer breed another fish that will breed in 10 days.
 - At day 2, fish that have 2 days initially in their timer breed another fish that will breed in 11 days.
