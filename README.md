@@ -202,6 +202,8 @@ Finally, I realized that the behavior has a cyclic nature:
 
 At day 9 (aka 0+9), a cycle of length 9 starts again, which means that we can express everyday in terms of its `mod 9`.
 
-Once I realized about this I pivoted towards having a count of "number of fish that breed at a particular breeding slot (day mod 9)". With this, every day, I could just increment the fish in the slot of `(today + 7) mod 9` by the number of fish breeding `today mod 9`.
+Once I realized about this I pivoted towards having a count of "number of fish that breed at a particular breeding slot (day mod 9)". With this, every day, I could just increment the fish in the slot of `(today + 7) mod 9` by the number of fish breeding `today mod 9` which can be understood as:
+- the fishes that breed today jump 7 slots ahead (or 2 back, however you want to see it)
+- they leave as many new fish in the current slot (the new fish)
 
 Not sure if this explanation will make sense to anybody other than me, though :shrug: :sweat_smile:
