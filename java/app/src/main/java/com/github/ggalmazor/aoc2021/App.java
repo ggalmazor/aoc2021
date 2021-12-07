@@ -3,12 +3,13 @@
  */
 package com.github.ggalmazor.aoc2021;
 
-import static java.util.Collections.emptyList;
+import static com.github.ggalmazor.aoc2021.lib.Input.readLines;
 
 import com.github.ggalmazor.aoc2021.days.Day1;
 
 public class App {
   public static void main(String[] args) {
-    new Day1.Part1().apply(emptyList());
+    System.out.printf("Day 1 - Part 1: %d%n", new Day1.Part1().apply(readLines(1)));
+    System.out.printf("Day 1 - Part 2: %d%n", new Day1.Part2().apply(readLines(1)));
   }
 }
