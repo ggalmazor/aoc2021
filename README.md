@@ -54,8 +54,11 @@ vector<vector<T>> window(vector<T> &v, int size) {
 
 ## Day 2
 
-[nodejs/2/solution.mjs](nodejs/2/solution.mjs)
-[c++/2/solution.cpp](c++/2/solution.cpp)
+[NodeJS](nodejs/2/solution.mjs)
+
+[C++ solution](c++/2/solution.cpp)
+
+[Java solution](java/app/src/main/java/com/github/ggalmazor/aoc2021/day2/Day2.java)
 
 For the first part I tried a super naive approach of counting the ups and downs and then subtracting them to compute the depth. I knew this approach was very fragile and probably would bite me on part 2, but I thought it was funny and went for it. 
 
@@ -143,7 +146,9 @@ Both parts are working but I'm not very happy with the duplication of code I cre
 
 ## Day 5
 
-[nodejs/5/solution.mjs](nodejs/5/solution.mjs)
+[NodeJS solution](nodejs/5/solution.mjs)
+
+[Java solution](java/app/src/main/java/com/github/ggalmazor/aoc2021/day5/Day5.java)
 
 This one was very fun to solve overall but I got a bit frustrated handling all the loops to iterate over coordinates until I decided to implement the `range` function to abstract away concerns about the direction of the range:
 
@@ -182,6 +187,8 @@ I did a couple of things that aren't really needed such as the plotting of the m
 
 ## Day 6
 
+[NodeJS solution](nodejs/6/solution.mjs)
+
 Phew! That took a while.
 
 I solved part 1 with a naive brute force approach where I iterate over every fish in the school and compute a new school for every day I need to, which proved to be a bad idea for part 2.
@@ -209,5 +216,7 @@ Once I realized about this I pivoted towards having a count of "number of fish t
 Not sure if this explanation will make sense to anybody other than me, though :shrug: :sweat_smile:
 
 ## Day 7
+
+[NodeJS solution](nodejs/7/solution.mjs)
 
 Today for part 2 I went directly to [maths](https://en.wikipedia.org/wiki/Triangular_number) to produce fuel consumptions for every position swap. I'm still feeling the pain from yesterday's event, I guess :D
