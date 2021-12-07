@@ -207,3 +207,7 @@ Once I realized about this I pivoted towards having a count of "number of fish t
 - they leave as many new fish in the current slot (the new fish)
 
 Not sure if this explanation will make sense to anybody other than me, though :shrug: :sweat_smile:
+
+## Day 7
+
+Today for part 2 I went directly to [maths](https://en.wikipedia.org/wiki/Triangular_number) to produce fuel consumptions for every position swap. I'm still feeling the pain from yesterday's event, I guess :D
