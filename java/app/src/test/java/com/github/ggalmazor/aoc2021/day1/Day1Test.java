@@ -1,8 +1,9 @@
-package com.github.ggalmazor.aoc2021.days;
+package com.github.ggalmazor.aoc2021.day1;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import com.github.ggalmazor.aoc2021.day1.Day1;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 

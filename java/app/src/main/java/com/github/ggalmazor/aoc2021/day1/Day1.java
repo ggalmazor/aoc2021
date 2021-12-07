@@ -1,4 +1,4 @@
-package com.github.ggalmazor.aoc2021.days;
+package com.github.ggalmazor.aoc2021.day1;
 
 import static com.github.ggalmazor.aoc2021.lib.Lists.window;
 import static java.util.stream.Collectors.toList;
