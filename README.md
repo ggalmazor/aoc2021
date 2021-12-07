@@ -169,7 +169,8 @@ I'm sure there are better implementations, and I'm aware that this implementatio
 
 I also had a lot of fun plotting the map into a canvas to produce a png image. This is the 10 by 10 example from the challenge's description:
 
-![image](https://user-images.githubusercontent.com/205913/144744692-57c613cf-087b-4b65-bd7e-571be22c2035.png)
+![image](https://user-images.githubusercontent.com/205913/145049355-7a192730-8460-4522-a7d6-2b4e529bd8a9.png)
+![image](https://user-images.githubusercontent.com/205913/145049264-ef8bd109-c010-496d-83ca-952e46adbedd.png)
 
 And here are the two maps of both parts of the challenge
 
