@@ -1,4 +1,5 @@
 import {Line} from "./line.mjs";
+import {flatMap} from "../lib/lists.mjs";
 
 export class Board {
   rows;
@@ -43,6 +44,6 @@ export class Board {
   }
 
   unmarkedNumbers() {
-    return this.rows.map(row => row.unmarkedNumbers()).reduce((a, b) => a.concat(b), [])
+    return flatMap(this.rows.map(row => row.unmarkedNumbers()));
   }
 }

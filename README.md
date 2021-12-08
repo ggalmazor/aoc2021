@@ -6,7 +6,7 @@
 
 [C++ solution.cpp](c++/1/solution.cpp)
 
-[Java solution](java/app/src/main/java/com/github/ggalmazor/aoc2021/days/Day1.java)
+[Java solution](java/app/src/main/java/com/github/ggalmazor/aoc2021/day1/Day1.java)
 
 I initially solved the problem using a sliding window because I really like them. However, I had to implement my own version of a sliding window array slicer because NodeJS doesn't come with one. 
 
@@ -220,3 +220,21 @@ Not sure if this explanation will make sense to anybody other than me, though :s
 [NodeJS solution](nodejs/7/solution.mjs)
 
 Today for part 2 I went directly to [maths](https://en.wikipedia.org/wiki/Triangular_number) to produce fuel consumptions for every position swap. I'm still feeling the pain from yesterday's event, I guess :D
+
+## Day 8
+
+Most of the work this time involved getting a sequence of operations over the encoded segments in a line to get all individual segment translations, and then be able to translate them into numbers. I used this sequence:
+- `[a] = segments(7) - segments(1)`
+- `[dg] = [[3 numbers of length 5] - segments(7)] (take the one with 2 segments)`
+- `[aeg] = [[3 numbers of length 5] - segments(4)] (take the one with 3 segments)`
+- `[e] = [aeg] - [a] - [dg]`
+- `[bdg] = [[[3 numbers of length 5] - segments(7)] - [e]] (take the one with 3 segments)`
+- `[b] = [bdg] - [dg]`
+- `[g] = [bdg] - segments(4)`
+- `[d] = [dg] - [g]`
+- Now we need to identify `segments(6)` (aka `[abdefg]`) by taking the original number among `[3 numbers of length 6]` that produces a 5 segments number in the set of `[[3 numbers of length 6] - segments(1)]` 
+- `[f] = [abdefg] - [a] - [b] - [d] - [e] - [g]`
+- `[c] = segments(1) - [f]`
+
+This gives us a map from segments to encoded segments, and with the reversed map we can decode encoded numbers.
+

@@ -20,3 +20,7 @@ export function range(from, to, inclusiveTo = true) {
   }
   return numbers;
 }
+
+export function flatMap(list) {
+  return list.reduce((a, b) => a.concat(b), []);
+}
