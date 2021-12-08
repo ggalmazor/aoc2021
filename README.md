@@ -239,4 +239,31 @@ Most of the work this time involved getting a sequence of operations over the en
 - `[f] = [abdefg] - [a] - [b] - [d] - [e] - [g]`
 - `[c] = segments(1) - [f]`
 
+Visually:
+```
+a:
+ ---     ···     --- 
+·   |   ·   |   ·   ·
+ ···  -  ···  =  ··· 
+·   |   ·   |   ·   ·
+ ···     ···     ··· 
+ 
+dg:
+ ---   ---   ---     ---     ···   ···   ··· 
+·   | ·   | |   ·   ·   |   ·   · ·   · |   ·
+ ---   ---   ---  -  ···  =  ---   ---   --- 
+|   · ·   | ·   |   ·   |   |   · ·   · ·   ·
+ ---   ---   ---     ···     ---   ---   --- 
+                                  ^^^^^ pick this one
+aeg:
+ ---   ---   ---     ···     ---   ---   --- 
+·   | ·   | |   ·   |   |   ·   · ·   · ·   ·
+ ---   ---   ---  -  ---  =  ···   ···   ··· 
+|   · ·   | ·   |   ·   |   |   · ·   · ·   ·
+ ---   ---   ---     ···     ---   ---   --- 
+                            ^^^^^ pick this one
+                            
+```
+etc.
+
 This gives us a map from segments to encoded segments, and with the reversed map we can decode encoded numbers.
