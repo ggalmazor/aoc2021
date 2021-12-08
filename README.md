@@ -224,6 +224,8 @@ Today for part 2 I went directly to [maths](https://en.wikipedia.org/wiki/Triang
 
 ## Day 8
 
+[NodeJS solution](nodejs/8/solution.mjs)
+
 Most of the work this time involved getting a sequence of operations over the encoded segments in a line to get all individual segment translations, and then be able to translate them into numbers. I used this sequence:
 - `[a] = segments(7) - segments(1)`
 - `[dg] = [[3 numbers of length 5] - segments(7)] (take the one with 2 segments)`
@@ -238,4 +240,3 @@ Most of the work this time involved getting a sequence of operations over the en
 - `[c] = segments(1) - [f]`
 
 This gives us a map from segments to encoded segments, and with the reversed map we can decode encoded numbers.
-
