@@ -285,6 +285,7 @@ Here are some basin plots I've created to visualize my progress. I mostly used t
 
 Then I cleaned up my solution before publishing it and I created the code to produce some nice PNGs with color gradients:
 
+|.    |.    |
 | --- | --- |
 | No basin highlights | ![No basin highlights](nodejs/9/no_basins.png) |
 | Biggest basin | ![Biggest basin](nodejs/9/basin0.png) |
