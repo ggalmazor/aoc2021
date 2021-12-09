@@ -285,14 +285,10 @@ Here are some basin plots I've created to visualize my progress. I mostly used t
 
 Then I cleaned up my solution before publishing it and I created the code to produce some nice PNGs with color gradients:
 
-![No basin highlights](nodejs/9/no_basins.png)
-(no basin highlights)
-
-![Biggest basin](nodejs/9/basin0.png)
-![Second biggest basin](nodejs/9/basin1.png)
-![Third biggest basin](nodejs/9/basin2.png)
-![Three biggest basins](nodejs/9/3_basins.png)
-(three biggest basins highlighted)
-
-![All basins](nodejs/9/all_basins.png)
-(all basins highlighted)
+| --- | --- |
+| No basin highlights | ![No basin highlights](nodejs/9/no_basins.png) |
+| Biggest basin | ![Biggest basin](nodejs/9/basin0.png) |
+| Second biggest basin | ![Second biggest basin](nodejs/9/basin1.png) |
+| Third biggest basin | ![Third biggest basin](nodejs/9/basin2.png) |
+| Three biggest basins | ![Three biggest basins](nodejs/9/3_basins.png) |
+| All basins | ![All basins](nodejs/9/all_basins.png) |
