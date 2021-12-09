@@ -92,7 +92,7 @@ export function renderImage(grid, basin, filename) {
     for (let y of range(0, 100, false))
       for (let xx of range(x * 5, (x + 1) * 5, false))
         for (let yy of range(y * 5, (y + 1) * 5, false))
-          img.setPixelRGBA(x, y, color(grid[y][x], coordsPresentIn(basin, x, y)));
+          img.setPixelRGBA(xx, yy, color(grid[y][x], coordsPresentIn(basin, x, y)));
   return PImage.encodePNGToStream(img, fs.createWriteStream(filename))
     .then(() => console.log(`wrote out the png file to ${filename}`))
     .catch(() => console.log("there was an error writing"));
@@ -104,7 +104,7 @@ export function renderAllImage(grid, basins, filename) {
     for (let y of range(0, 100, false))
       for (let xx of range(x * 5, (x + 1) * 5, false))
         for (let yy of range(y * 5, (y + 1) * 5, false))
-          img.setPixelRGBA(x, y, color(grid[y][x], basins.some(basin => coordsPresentIn(basin, x, y))));
+          img.setPixelRGBA(xx, yy, color(grid[y][x], basins.some(basin => coordsPresentIn(basin, x, y))));
   return PImage.encodePNGToStream(img, fs.createWriteStream(filename))
     .then(() => console.log(`wrote out the png file to ${filename}`))
     .catch(() => console.log("there was an error writing"));
