@@ -1,5 +1,10 @@
 # Advent of Code 2021
 
+## To do
+
+- [ ] Solve 6 in Java and explore how parallel streams can handle the brute force approach. Also try [Belen's approach](https://github.com/belen-albeza/aoc-2021/blob/main/src/day06.rs) with and without memoizing partial results.
+- [ ] Solve 8 in Java to explora an approach that precomputes all `7! = 5040` possible permutations of the 7 segments and identifies the specific permutation used on each line instead of extracting a decoder from the samples in them.
+ 
 ## Day 1
 
 [NodeJS solution](nodejs/1/solution.mjs)
@@ -267,3 +272,27 @@ aeg:
 etc.
 
 This gives us a map from segments to encoded segments, and with the reversed map we can decode encoded numbers.
+
+## Day 9
+
+[NodeJS solution](nodejs/9/solution.mjs)
+
+Today I had more time than usual to think about how to approach part 2 and I'm happy with it, although I'm curious about other people's solutions, especially if they have game dev background.
+
+Here are some basin plots I've created to visualize my progress. I mostly used this text-based visualization during my work on the solution:
+
+![Biggest basin, in text mode](nodejs/9/basin0_text.png)
+
+Then I cleaned up my solution before publishing it and I created the code to produce some nice PNGs with color gradients:
+
+![No basin highlights](nodejs/9/no_basins.png)
+(no basin highlights)
+
+![Biggest basin](nodejs/9/basin0.png)
+![Second biggest basin](nodejs/9/basin1.png)
+![Third biggest basin](nodejs/9/basin2.png)
+![Three biggest basins](nodejs/9/3_basins.png)
+(three biggest basins highlighted)
+
+![All basins](nodejs/9/all_basins.png)
+(all basins highlighted)
