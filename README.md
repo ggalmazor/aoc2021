@@ -3,7 +3,7 @@
 ## To do
 
 - [ ] Solve 6 in Java and explore how parallel streams can handle the brute force approach. Also try [Belen's approach](https://github.com/belen-albeza/aoc-2021/blob/main/src/day06.rs) with and without memoizing partial results.
-- [ ] Solve 8 in Java to explora an approach that precomputes all `7! = 5040` possible permutations of the 7 segments and identifies the specific permutation used on each line instead of extracting a decoder from the samples in them.
+- [x] Solve 8 in Java to explora an approach that precomputes all `7! = 5040` possible permutations of the 7 segments and identifies the specific permutation used on each line instead of extracting a decoder from the samples in them.
  
 ## Day 1
 
