@@ -229,6 +229,8 @@ Today for part 2 I went directly to [maths](https://en.wikipedia.org/wiki/Triang
 
 ## Day 8
 
+### NodeJS
+
 [NodeJS solution](nodejs/8/solution.mjs)
 
 Most of the work this time involved getting a sequence of operations over the encoded segments in a line to get all individual segment translations, and then be able to translate them into numbers. I used this sequence:
@@ -272,6 +274,14 @@ aeg:
 etc.
 
 This gives us a map from segments to encoded segments, and with the reversed map we can decode encoded numbers.
+
+### Java
+
+[Java solution](java/app/src/main/java/com/github/ggalmazor/aoc2021/day8/Day8.java)
+
+I wanted to explore an approach that would first compute all 5040 permutations of `abcdef` and produce some kind of key that I would use to identify the specific permutation used to produce each line in the input.
+
+It totally worked, which simplified the decoder quite a bit. The most complicated part is all the sorting of strings that's going on. Numbers in the input file are completely scrambled, which means I needed a consistent way of dealing with them by sorting their segments alphabetically.
 
 ## Day 9
 

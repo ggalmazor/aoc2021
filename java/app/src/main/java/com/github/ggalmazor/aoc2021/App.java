@@ -8,14 +8,17 @@ import static com.github.ggalmazor.aoc2021.lib.Input.readLines;
 import com.github.ggalmazor.aoc2021.day1.Day1;
 import com.github.ggalmazor.aoc2021.day2.Day2;
 import com.github.ggalmazor.aoc2021.day5.Day5;
+import com.github.ggalmazor.aoc2021.day8.Day8;
 
 public class App {
   public static void main(String[] args) {
-    System.out.printf("Day 1 - Part 1: %d%n", new Day1.Part1().apply(readLines(1)));
-    System.out.printf("Day 1 - Part 2: %d%n", new Day1.Part2().apply(readLines(1)));
-    System.out.printf("Day 2 - Part 1: %d%n", new Day2.Part1().apply(readLines(2)));
-    System.out.printf("Day 2 - Part 2: %d%n", new Day2.Part2().apply(readLines(2)));
-    System.out.printf("Day 5 - Part 1: %d%n", new Day5.Part1().apply(readLines(5)));
-    System.out.printf("Day 5 - Part 2: %d%n", new Day5.Part2().apply(readLines(5)));
+//    System.out.printf("Day 1 - Part 1: %d%n", new Day1.Part1().apply(readLines(1)));
+//    System.out.printf("Day 1 - Part 2: %d%n", new Day1.Part2().apply(readLines(1)));
+//    System.out.printf("Day 2 - Part 1: %d%n", new Day2.Part1().apply(readLines(2)));
+//    System.out.printf("Day 2 - Part 2: %d%n", new Day2.Part2().apply(readLines(2)));
+//    System.out.printf("Day 5 - Part 1: %d%n", new Day5.Part1().apply(readLines(5)));
+//    System.out.printf("Day 5 - Part 2: %d%n", new Day5.Part2().apply(readLines(5)));
+//    System.out.printf("Day 8 - Part 1: %d%n", new Day8.Part1().apply(readLines(8)));
+    System.out.printf("Day 8 - Part 2: %d%n", new Day8.Part2().apply(readLines(8)));
   }
 }
