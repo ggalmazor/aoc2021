@@ -1,5 +1,5 @@
 import {readLines} from "../lib/input.mjs";
-import {Connections, findPaths} from "./pathfinder.mjs";
+import {Connections} from "./pathfinder.mjs";
 
 const lines = readLines(import.meta.url)
 
