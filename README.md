@@ -4,7 +4,7 @@
 
 - [ ] Solve 6 in Java and explore how parallel streams can handle the brute force approach. Also try [Belen's approach](https://github.com/belen-albeza/aoc-2021/blob/main/src/day06.rs) with and without memoizing partial results.
 - [x] Solve 8 in Java to explora an approach that precomputes all `7! = 5040` possible permutations of the 7 segments and identifies the specific permutation used on each line instead of extracting a decoder from the samples in them.
- 
+
 ## Day 1
 
 [NodeJS solution](nodejs/1/solution.mjs)
@@ -13,9 +13,10 @@
 
 [Java solution](java/app/src/main/java/com/github/ggalmazor/aoc2021/day1/Day1.java)
 
-I initially solved the problem using a sliding window because I really like them. However, I had to implement my own version of a sliding window array slicer because NodeJS doesn't come with one. 
+I initially solved the problem using a sliding window because I really like them. However, I had to implement my own version of a sliding window array slicer because NodeJS doesn't come with one.
 
 It started like this:
+
 ```javascript
 function window(list) {
   const output = [];
@@ -26,6 +27,7 @@ function window(list) {
 ```
 
 And then I had to abstract away the size of the window for part 2:
+
 ```javascript
 function window(list, size = 2) {
   const output = [];
@@ -65,11 +67,11 @@ vector<vector<T>> window(vector<T> &v, int size) {
 
 [Java solution](java/app/src/main/java/com/github/ggalmazor/aoc2021/day2/Day2.java)
 
-For the first part I tried a super naive approach of counting the ups and downs and then subtracting them to compute the depth. I knew this approach was very fragile and probably would bite me on part 2, but I thought it was funny and went for it. 
+For the first part I tried a super naive approach of counting the ups and downs and then subtracting them to compute the depth. I knew this approach was very fragile and probably would bite me on part 2, but I thought it was funny and went for it.
 
 While I was doing that I realized that my approach didn't account for negative depths. Theoretically, the sub could go up more units than its actual depth, which would mean it would "jump" over the sea line :D. To discard this could actually happen with the input I had, I did a quick test that computed all running depths and found that the value never went negative, which meant that my approach was sound so far.
 
-For part 2 I had to throw away my first approach because I needed to keep a running state of the subs aim, which depends on all the previous ups and downs. 
+For part 2 I had to throw away my first approach because I needed to keep a running state of the subs aim, which depends on all the previous ups and downs.
 
 ## Day 3
 
@@ -86,13 +88,15 @@ const gammaRate = parseInt(lines
   .reduce(
     (counts, line) => zip(counts, line.split('')
       .map(v => v === '0' ? -1 : 1)
-    ).map(([a, b]) => a + b), 
+    ).map(([a, b]) => a + b),
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   )
   .map(count => count > 0 ? '1' : '0')
   .join(''), 2);
 ```
+
 Reading this expression hurts a bit though :D. Here's a step by step explanation:
+
 - The `reduce` is based on aggregating all bit position biases in that initial `[0, ... ,0]` array I'm feeding into the operation. Each number in that array is the bias for that bit position:
 - The reduction function computes the bias for each bit in the `line` I'm iterating through, pairs it with its corresponding bias in `counts` thanks to the `zip` function, and then sums them to produce a new bias array.
 - Then, biases are translated back to binary `1`s and `0`s into a string.
@@ -100,7 +104,7 @@ Reading this expression hurts a bit though :D. Here's a step by step explanation
 
 To compute the `epsilonRate` I computed the bitwise complement of the `gammaRate`. My first attempt involved naively aggregating as many `1`s into a string as the length of the binary representation of the `gammaRate` value to produce the `11...11` mask I needed , and then I realized I could achieve the same with `Math.pow(2, length)-1` that would produce the number I needed for the mask in a more elegant way.
 
-For the second part of the challenge I applied iteratively the same "bias" concept while filtering out lines that didn't match the current search criteria (search for the most or least frequent value in that bit position) 
+For the second part of the challenge I applied iteratively the same "bias" concept while filtering out lines that didn't match the current search criteria (search for the most or least frequent value in that bit position)
 
 ## Day 4
 
@@ -147,7 +151,7 @@ Honestly this time I was more interested in representing the bingo boards in con
 
 ![image](https://user-images.githubusercontent.com/205913/144708471-59b4ac9f-439f-44bf-a77d-7ee4b3d2fe18.png)
 
-Both parts are working but I'm not very happy with the duplication of code I created. I didn't find a nice way of reusing more code between parts. 
+Both parts are working but I'm not very happy with the duplication of code I created. I didn't find a nice way of reusing more code between parts.
 
 ## Day 5
 
@@ -170,6 +174,7 @@ function range(from, to, inclusiveTo = true) {
   return numbers;
 }
 ```
+
 I'm sure there are better implementations, and I'm aware that this implementation is very limited (no option to set a step size, etc) but it supports what I need to do now and I can expand it in the future if needed.
 
 I also had a lot of fun plotting the map into a canvas to produce a png image. This is the 10 by 10 example from the challenge's description:
@@ -183,6 +188,7 @@ And here are the two maps of both parts of the challenge
 ![part2](https://user-images.githubusercontent.com/205913/144744599-49255e61-ffc9-4467-9362-95e33c618a96.png)
 
 I used a color palette with 5 colors:
+
 - 0 gets grey
 - 1 gets light yellow
 - 2 gets orange
@@ -204,7 +210,8 @@ I tried to introduce several optimizations and workarounds for the eventual stac
 It was clear that iterating fishes * days wasn't going to produce a result in a reasonable amount of time.
 
 Finally, I realized that the behavior has a cyclic nature:
-- Today + 0, fish that have 0 days initially in their timer, breed another fish that will breed in 0 + 9 days. They, in turn, breed again in 0 + 7 days. 
+
+- Today + 0, fish that have 0 days initially in their timer, breed another fish that will breed in 0 + 9 days. They, in turn, breed again in 0 + 7 days.
 - Today + 1, fish that have 1 days initially in their timer, breed another fish that will breed in 1 + 9 days. They, in turn, breed again in 1 + 7 days.
 - Today + 2, fish that have 2 days initially in their timer, breed another fish that will breed in 2 + 9 days. They, in turn, breed again in 2 + 7 days.
 - ...
@@ -216,6 +223,7 @@ Finally, I realized that the behavior has a cyclic nature:
 At day 9 (aka 0+9), a cycle of length 9 starts again, which means that we can express everyday in terms of its `mod 9`.
 
 Once I realized about this I pivoted towards having a count of "number of fish that breed at a particular breeding slot (day mod 9)". With this, every day, I could just increment the fish in the slot of `(today + 7) mod 9` by the number of fish breeding `today mod 9` which can be understood as:
+
 - the fishes that breed today jump 7 slots ahead (or 2 back, however you want to see it)
 - they leave as many new fish in the current slot (the new fish)
 
@@ -234,6 +242,7 @@ Today for part 2 I went directly to [maths](https://en.wikipedia.org/wiki/Triang
 [NodeJS solution](nodejs/8/solution.mjs)
 
 Most of the work this time involved getting a sequence of operations over the encoded segments in a line to get all individual segment translations, and then be able to translate them into numbers. I used this sequence:
+
 - `[a] = segments(7) - segments(1)`
 - `[dg] = [[3 numbers of length 5] - segments(7)] (take the one with 2 segments)`
 - `[aeg] = [[3 numbers of length 5] - segments(4)] (take the one with 3 segments)`
@@ -242,11 +251,12 @@ Most of the work this time involved getting a sequence of operations over the en
 - `[b] = [bdg] - [dg]`
 - `[g] = [bdg] - segments(4)`
 - `[d] = [dg] - [g]`
-- Now we need to identify `segments(6)` (aka `[abdefg]`) by taking the original number among `[3 numbers of length 6]` that produces a 5 segments number in the set of `[[3 numbers of length 6] - segments(1)]` 
+- Now we need to identify `segments(6)` (aka `[abdefg]`) by taking the original number among `[3 numbers of length 6]` that produces a 5 segments number in the set of `[[3 numbers of length 6] - segments(1)]`
 - `[f] = [abdefg] - [a] - [b] - [d] - [e] - [g]`
 - `[c] = segments(1) - [f]`
 
 Visually:
+
 ```
 a:
  ---     ···     --- 
@@ -271,6 +281,7 @@ aeg:
                             ^^^^^ pick this one
                             
 ```
+
 etc.
 
 This gives us a map from segments to encoded segments, and with the reversed map we can decode encoded numbers.
@@ -303,3 +314,18 @@ Then I cleaned up my solution before publishing it and I created the code to pro
 | Third biggest basin | ![Third biggest basin](nodejs/9/basin2.png) |
 | Three biggest basins | ![Three biggest basins](nodejs/9/3_basins.png) |
 | All basins | ![All basins](nodejs/9/all_basins.png) |
+
+## Days 11 and 12
+
+These haven't been my best days. I'm really feeling tired and not up to the task due to a cold I'm going through but I managed to complete both events today.
+
+Again, struggling with equality rules in NodeJS. My final solution feels a bit overengineered but it works.
+
+I also played with ImageMagick and produced a couple of animated GIFs with Day 11 solutions:
+
+|                                      | fps  | frames | GIF                                                              |
+|--------------------------------------|------|--------|------------------------------------------------------------------|
+| 1 frame = 1 step                     | 12.5 | 477    | ![1 frame per step @ 12.5 fps](nodejs/11/animation_steps_d8.gif) |
+| 1 frame for every change in the grid | 50   | 7780   | ![1 frame per change @ 50 fps](nodejs/11/animation_d2.gif)       |
+
+
