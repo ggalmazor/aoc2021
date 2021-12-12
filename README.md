@@ -317,6 +317,10 @@ Then I cleaned up my solution before publishing it and I created the code to pro
 
 ## Days 11 and 12
 
+[NodeJS solution - Day 11](nodejs/11/solution.mjs)
+
+[NodeJS solution - Day 12](nodejs/12/solution.mjs)
+
 These haven't been my best days. I'm really feeling tired and not up to the task due to a cold I'm going through but I managed to complete both events today.
 
 Again, struggling with equality rules in NodeJS. My final solution feels a bit overengineered but it works.
