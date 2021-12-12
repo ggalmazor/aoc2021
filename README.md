@@ -328,4 +328,5 @@ I also played with ImageMagick and produced a couple of animated GIFs with Day 1
 | 1 frame = 1 step                     | 12.5 | 477    | ![1 frame per step @ 12.5 fps](nodejs/11/animation_steps_d8.gif) |
 | 1 frame for every change in the grid | 50   | 7780   | ![1 frame per change @ 50 fps](nodejs/11/animation_d2.gif)       |
 
+I'm not sure these gifs are being shown at the fps I set when I created them, though...
 
