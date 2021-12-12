@@ -1,4 +1,4 @@
-import {flatMap} from "./lists.mjs";
+import {flatten} from "./lists.mjs";
 
 export function pad(size, str, padChar = " ") {
   let pad = '';
@@ -8,6 +8,6 @@ export function pad(size, str, padChar = " ") {
 }
 
 export function diff(a, ...bb) {
-  const uniqueCharsOnAllB = [...new Set(flatMap(bb)).values()].join('');
+  const uniqueCharsOnAllB = [...new Set(flatten(bb)).values()].join('');
   return a.split('').filter(i => !uniqueCharsOnAllB.includes(i)).join('');
 }

@@ -21,6 +21,6 @@ export function range(from, to, inclusiveTo = true) {
   return numbers;
 }
 
-export function flatMap(list) {
+export function flatten(list) {
   return list.reduce((a, b) => a.concat(b), []);
 }

@@ -1,12 +1,12 @@
 import {readLines} from "../lib/input.mjs";
 import {sum} from "../lib/numbers.mjs";
 import Decoder from "./decoder.mjs";
-import {flatMap} from "../lib/lists.mjs";
+import {flatten} from "../lib/lists.mjs";
 
 const lines = readLines(import.meta.url)
 
 function part1(lines) {
-  return flatMap(lines.map(line => line.split(" | ")[1].split(" "))).map(s => s.length).filter(l => [2, 3, 4, 7].includes(l)).length
+  return flatten(lines.map(line => line.split(" | ")[1].split(" "))).map(s => s.length).filter(l => [2, 3, 4, 7].includes(l)).length
 }
 
 function part2(lines) {
