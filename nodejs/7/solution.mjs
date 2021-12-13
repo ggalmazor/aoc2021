@@ -28,7 +28,7 @@ function part2(lines) {
 }
 
 export default function run() {
-  console.log("Day 6:")
+  console.log("Day 7:")
   let result1 = part1(lines);
   let result2 = part2(lines);
   console.log("  (1) Result:", result1);
