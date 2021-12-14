@@ -334,3 +334,11 @@ I also played with ImageMagick and produced a couple of animated GIFs with Day 1
 
 I'm not sure these gifs are being shown at the fps I set when I created them, though...
 
+## Day 13
+
+The `Grid` abstraction from previous days proved to be useful. I generated a couple of visualizations today too:
+
+|                 |                                             |
+|-----------------|---------------------------------------------|
+| Part 2 result   | ![Reads "ZUJUAFHP"](nodejs/13/folded.png)   |
+| Folds animation | ![folds animation](nodejs/13/animation.gif) |

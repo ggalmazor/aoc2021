@@ -44,7 +44,7 @@ export class Octoparty {
       const newFlashingCells = allFlashes.filter(([x, y, level]) => !coordsPresentIn(flashingCells, x, y));
       flashingCells = flashingCells.concat(newFlashingCells);
     }
-    this.allFlashed = flashingCellsInStep === this.grid.size();
+    this.allFlashed = flashingCellsInStep === this.grid.cellCount();
     this.grid.mapValues(cycleLevel)
     return this;
   }

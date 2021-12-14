@@ -1,4 +1,7 @@
-import {range} from "./lists.mjs";
+import {flatten, range} from "./lists.mjs";
+import * as PImage from "pureimage";
+import fs from "fs";
+import {isEven} from "./numbers.mjs";
 
 export class Grid {
   cells;
@@ -11,8 +14,20 @@ export class Grid {
     this.height = height;
   }
 
+  static empty() {
+    return new Grid([], 0, 0);
+  }
+
   static of(matrix) {
     return new Grid(matrix, matrix[0].length, matrix.length);
+  }
+
+  add(x, y, value) {
+    this.cells[y] ||= [];
+    this.cells[y][x] = value;
+    this.width = Math.max(this.width, x + 1);
+    this.height = Math.max(this.height, y + 1);
+    return this;
   }
 
   mapValues(mapper) {
@@ -25,15 +40,19 @@ export class Grid {
     return this;
   }
 
+  valuesAtRow(y) {
+    return this.cells[y];
+  }
+
+  valuesAtCol(x) {
+    return this.cells.map(row => row[x]);
+  }
+
   findCells(predicate) {
-    const matchingCells = [];
-    for (let x = 0; x < this.width; x++)
-      for (let y = 0; y < this.height; y++) {
-        const cell = [x, y, this.cells[y][x]];
-        if (predicate(cell))
-          matchingCells.push(cell)
-      }
-    return matchingCells;
+    return flatten(range(0, this.height, false)
+      .map(y => range(0, this.width, false)
+        .map(x => [x, y, this.valueAt(x, y)])))
+      .filter(predicate);
   }
 
   neighborsAt(x, y) {
@@ -42,7 +61,92 @@ export class Grid {
     return this.findCells(([x, y, cell]) => xx.includes(x) && yy.includes(y));
   }
 
-  size() {
+  cellCount() {
     return this.width * this.height;
+  }
+
+  valueAt(x, y) {
+    return this.cells[y] !== undefined ? this.cells[y][x] : undefined;
+  }
+
+  splitAlongYAt(x) {
+    const left = [];
+    const right = [];
+    range(0, this.height, false).forEach(ty => {
+      range(0, x, false).forEach(tx => {
+        left[ty] ||= [];
+        left[ty][tx] = this.valueAt(tx, ty);
+      });
+      range(x + 1, this.width, false).forEach(tx => {
+        right[ty] ||= [];
+        right[ty][tx - x - 1] = this.valueAt(tx, ty);
+      });
+    });
+    return [new Grid(left, x, this.height), new Grid(right, right[0].length, this.height)];
+  }
+
+  splitAlongXAt(y) {
+    const top = [];
+    const bottom = [];
+    range(0, this.width, false).forEach(tx => {
+      range(0, y, false).forEach(ty => {
+        top[ty] ||= [];
+        top[ty][tx] = this.valueAt(tx, ty);
+      });
+      range(y + 1, this.height, false).forEach(ty => {
+        bottom[ty - y - 1] ||= [];
+        bottom[ty - y - 1][tx] = this.valueAt(tx, ty);
+      });
+    });
+    return [new Grid(top, this.width, y), new Grid(bottom, this.width, bottom.length)];
+  }
+
+  mirrorAlongX() {
+    return new Grid([...this.cells].reverse().map(row => [...row]), this.width, this.height);
+  }
+
+  mirrorAlongY() {
+    return new Grid(this.cells.map(row => [...row].reverse()), this.width, this.height);
+  }
+
+  padRight(cols) {
+    if (cols === 0)
+      return this;
+    return new Grid(this.cells.map(row => row.concat(new Array(cols).fill(undefined))), this.width + cols, this.height);
+  }
+
+  padBottom(rows) {
+    if (rows === 0)
+      return this;
+    return new Grid(this.cells.concat(new Array(rows).fill(new Array(this.width).fill(undefined))), this.width, this.height + rows);
+  }
+
+  merge(other, mapper) {
+    const newCells = range(0, Math.max(this.height, other.height), false)
+      .map(y => range(0, Math.max(this.width, other.width), false)
+        .map(x => mapper(this.valueAt(x, y), other.valueAt(x, y))));
+    return new Grid(newCells, this.width, this.height);
+  }
+
+  foldAlongYAt(x, mapper) {
+    const [left, right] = this.splitAlongYAt(x);
+    return left.merge(right.padRight(isEven(this.width) ? 1 : 0).mirrorAlongY(), mapper);
+  }
+
+  foldAlongXAt(y, mapper) {
+    const [top, bottom] = this.splitAlongXAt(y);
+    return top.merge(bottom.padBottom(isEven(this.height) ? 1 : 0).mirrorAlongX(), mapper);
+  }
+
+  async render(filename, width = null, height = null, colorMapper) {
+    const img = PImage.make(width || this.width, height || this.height);
+    range(0, width || this.width, false).forEach(x => {
+      range(0, height || this.height, false).forEach(y => {
+        img.setPixelRGBA(x, y, colorMapper(this.valueAt(x, y)));
+      });
+    });
+    return PImage.encodePNGToStream(img, fs.createWriteStream(filename))
+      .then(() => console.log(`wrote out the png file to ${filename}`))
+      .catch(() => console.log("there was an error writing"));
   }
 }
