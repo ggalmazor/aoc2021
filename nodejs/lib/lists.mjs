@@ -24,3 +24,7 @@ export function range(from, to, inclusiveTo = true) {
 export function flatten(list) {
   return list.reduce((a, b) => a.concat(b), []);
 }
+
+export function uniqueValues(list) {
+  return [...new Set(list)];
+}
