@@ -58,7 +58,33 @@ export class Grid {
   neighborsAt(x, y) {
     const xx = range(Math.max(0, x - 1), Math.min(this.width, x + 1), true);
     const yy = range(Math.max(0, y - 1), Math.min(this.height, y + 1), true);
-    return this.findCells(([x, y, cell]) => xx.includes(x) && yy.includes(y));
+    return this.findCells(([tx, ty, _]) => (tx !== x || ty !== y) && xx.includes(tx) && yy.includes(ty));
+  }
+
+  neighborValuesAt(x, y, excludeDiagonals = false) {
+    const values = [];
+    if (excludeDiagonals) {
+      if (x - 1 >= 0)
+        values.push(this.valueAt(x - 1, y));
+      if (x + 1 < this.width)
+        values.push(this.valueAt(x + 1, y));
+      if (y - 1 >= 0)
+        values.push(this.valueAt(x, y - 1));
+      if (y + 1 < this.height)
+        values.push(this.valueAt(x, y + 1));
+    } else {
+      const xx = range(Math.max(0, x - 1), Math.min(this.width - 1, x + 1), true);
+      const yy = range(Math.max(0, y - 1), Math.min(this.height - 1, y + 1), true);
+
+      for (let tx of xx) {
+        for (let ty of yy) {
+          if (tx !== x || ty !== y) {
+            values.push(this.valueAt(tx, ty));
+          }
+        }
+      }
+    }
+    return values;
   }
 
   cellCount() {
@@ -109,10 +135,22 @@ export class Grid {
     return new Grid(this.cells.map(row => [...row].reverse()), this.width, this.height);
   }
 
+  padLeft(cols) {
+    if (cols === 0)
+      return this;
+    return new Grid(this.cells.map(row => new Array(cols).fill(undefined).concat(row)), this.width + cols, this.height);
+  }
+
   padRight(cols) {
     if (cols === 0)
       return this;
     return new Grid(this.cells.map(row => row.concat(new Array(cols).fill(undefined))), this.width + cols, this.height);
+  }
+
+  padTop(rows) {
+    if (rows === 0)
+      return this;
+    return new Grid(new Array(rows).fill(new Array(this.width).fill(undefined)).concat(this.cells), this.width, this.height + rows);
   }
 
   padBottom(rows) {
