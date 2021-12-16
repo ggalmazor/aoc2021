@@ -1,5 +1,5 @@
 import {pad} from "../lib/strings.mjs";
-import {product, sum} from "../lib/numbers.mjs";
+import {max, min, product, sum} from "../lib/numbers.mjs";
 
 function hex2bin(hexString) {
   return hexString.split('').map(char => pad(4, parseInt(char, 16).toString(2), '0')).join('');
@@ -66,159 +66,70 @@ export class LiteralNumber extends Packet {
 export class Operator extends Packet {
   version;
   subpackets;
+  operation;
 
-  constructor(version, subpackets) {
+  constructor(version, subpackets, operation) {
     super();
     this.version = version;
     this.subpackets = subpackets;
-  }
-
-  static fromBin(version, type, binaryString) {
-    return binaryString[0] === '1'
-      ? Operator.parseBySubpacketCount(version, type, binaryString.slice(1))
-      : Operator.parseByTotalLength(version, type, binaryString.slice(1));
+    this.operation = operation;
   }
 
   static parseSubpackets(binaryString) {
-    if (binaryString[0] === '1') {
-      const subpackets = [];
-      let rest;
-      const subpacketCount = parseInt(binaryString.substr(1, 11), 2)
-      rest = binaryString.substr(12);
-      do {
-        const pair = Packet.fromBin(rest);
-        subpackets.push(pair[0]);
-        rest = pair[1];
-      } while (subpackets.length < subpacketCount)
-      return [subpackets, rest];
-    } else {
-      const subpackets = [];
-      let rest;
-      const totalLength = parseInt(binaryString.substr(1, 15), 2);
-      rest = binaryString.substr(16, totalLength);
-      do {
-        const pair = Packet.fromBin(rest);
-        subpackets.push(pair[0]);
-        rest = pair[1];
-      } while (rest.length > 0)
-      return [subpackets, rest + binaryString.substr(16 + totalLength)];
-    }
+    if (binaryString[0] === '1')
+      return Operator.parseSubpacketsByCount(binaryString);
+
+    return Operator.parseSubpacketsByTotalLength(binaryString);
   }
 
-  static of(version, type, subpackets) {
-    switch (type) {
-      case 0:
-        return new Sum(version, subpackets);
-      case 1:
-        return new Product(version, subpackets);
-      case 2:
-        return new Min(version, subpackets);
-      case 3:
-        return new Max(version, subpackets);
-      case 5:
-        return new GreaterThan(version, subpackets);
-      case 6:
-        return new LessThan(version, subpackets);
-      case 7:
-        return new EqualTo(version, subpackets);
-    }
-  }
-
-  static parseBySubpacketCount(version, type, binaryString) {
-    const subpacketCount = parseInt(binaryString.substr(0, 11), 2);
-    let rest = binaryString.substr(11);
+  static parseSubpacketsByCount(binaryString) {
+    const subpacketCount = parseInt(binaryString.substr(1, 11), 2)
     const subpackets = [];
+    let rest = binaryString.substr(12);
     do {
       const pair = Packet.fromBin(rest);
       subpackets.push(pair[0]);
       rest = pair[1];
     } while (subpackets.length < subpacketCount)
-    return [new Operator(version, subpackets), rest];
+    return [subpackets, rest];
   }
 
-  static parseByTotalLength(version, type, binaryString) {
-    const totalLength = parseInt(binaryString.substr(0, 15), 2);
-    let rest = binaryString.substr(15, totalLength);
+  static parseSubpacketsByTotalLength(binaryString) {
+    const totalLength = parseInt(binaryString.substr(1, 15), 2);
     const subpackets = [];
+    let rest = binaryString.substr(16, totalLength);
     do {
       const pair = Packet.fromBin(rest);
       subpackets.push(pair[0]);
       rest = pair[1];
     } while (rest.length > 0)
-    return [new Operator(version, subpackets), rest + binaryString.substr(15 + totalLength)];
+    return [subpackets, rest + binaryString.substr(16 + totalLength)];
+  }
+
+  static of(version, type, subpackets) {
+    switch (type) {
+      case 0:
+        return new Operator(version, subpackets, values => values.reduce(sum, 0));
+      case 1:
+        return new Operator(version, subpackets, values => values.reduce(product, 1));
+      case 2:
+        return new Operator(version, subpackets, values => values.reduce(min, Number.MAX_SAFE_INTEGER));
+      case 3:
+        return new Operator(version, subpackets, values => values.reduce(max, -1 * Number.MAX_SAFE_INTEGER));
+      case 5:
+        return new Operator(version, subpackets, ([a, b]) => a > b ? 1 : 0);
+      case 6:
+        return new Operator(version, subpackets, ([a, b]) => a < b ? 1 : 0);
+      case 7:
+        return new Operator(version, subpackets, ([a, b]) => a === b ? 1 : 0);
+    }
   }
 
   versionSum() {
     return this.version + this.subpackets.map(p => p.versionSum()).reduce(sum, 0);
   }
-}
-
-export class Sum extends Operator {
-  constructor(version, subpackets) {
-    super(version, subpackets);
-  }
 
   value() {
-    return this.subpackets.map(e => e.value()).reduce(sum, 0);
-  }
-}
-
-export class Product extends Operator {
-  constructor(version, subpackets) {
-    super(version, subpackets);
-  }
-
-  value() {
-    return this.subpackets.map(e => e.value()).reduce(product, 1);
-  }
-}
-
-export class Max extends Operator {
-  constructor(version, subpackets) {
-    super(version, subpackets);
-  }
-
-  value() {
-    return this.subpackets.map(e => e.value()).reduce((a, b) => a > b ? a : b, -1 * Number.MAX_SAFE_INTEGER);
-  }
-}
-
-export class Min extends Operator {
-  constructor(version, subpackets) {
-    super(version, subpackets);
-  }
-
-  value() {
-    return this.subpackets.map(e => e.value()).reduce((a, b) => a < b ? a : b, Number.MAX_SAFE_INTEGER);
-  }
-}
-
-export class GreaterThan extends Operator {
-  constructor(version, subpackets) {
-    super(version, subpackets);
-  }
-
-  value() {
-    return this.subpackets[0].value() > this.subpackets[1].value() ? 1 : 0;
-  }
-}
-
-export class LessThan extends Operator {
-  constructor(version, subpackets) {
-    super(version, subpackets);
-  }
-
-  value() {
-    return this.subpackets[0].value() < this.subpackets[1].value() ? 1 : 0;
-  }
-}
-
-export class EqualTo extends Operator {
-  constructor(version, subpackets) {
-    super(version, subpackets);
-  }
-
-  value() {
-    return this.subpackets[0].value() === this.subpackets[1].value() ? 1 : 0;
+    return this.operation(this.subpackets.map(p => p.value()));
   }
 }

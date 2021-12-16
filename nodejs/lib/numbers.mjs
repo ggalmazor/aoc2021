@@ -6,6 +6,14 @@ export function product(a, b) {
   return a * b;
 }
 
+export function min(a, b) {
+  return a < b ? a : b;
+}
+
+export function max(a, b) {
+  return a > b ? a : b;
+}
+
 export function nullsafeSum(a, b) {
   return a === undefined ? b : b === undefined ? a : a + b;
 }
