@@ -15,15 +15,13 @@ export default class Packet {
     const type = parseInt(binaryString.substr(3, 3), 2);
 
     let rest = binaryString.substr(6);
-    switch (type) {
-      case 4:
-        return LiteralNumber.fromBin(version, rest);
-      default:
-        const pair = Operator.parseSubpackets(rest)
-        const subpackets = pair[0];
-        rest = pair[1];
-        return [Operator.of(version, type, subpackets), rest];
-    }
+    if (type === 4)
+      return LiteralNumber.fromBin(version, rest);
+
+    const pair = Operator.parseSubpackets(rest)
+    const subpackets = pair[0];
+    rest = pair[1];
+    return [Operator.of(version, type, subpackets), rest];
   }
 
   versionSum() {
