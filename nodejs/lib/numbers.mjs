@@ -2,6 +2,10 @@ export function sum(a, b) {
   return a + b;
 }
 
+export function product(a, b) {
+  return a * b;
+}
+
 export function nullsafeSum(a, b) {
   return a === undefined ? b : b === undefined ? a : a + b;
 }
