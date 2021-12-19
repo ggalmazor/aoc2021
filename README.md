@@ -342,3 +342,56 @@ The `Grid` abstraction from previous days proved to be useful. I generated a cou
 |-----------------|---------------------------------------------|
 | Part 2 result   | ![Reads "ZUJUAFHP"](nodejs/13/folded.png)   |
 | Folds animation | ![folds animation](nodejs/13/animation.gif) |
+
+## Day 17
+
+This was a lot of work and finally I was able to solve both parts while throwing away 90% of the spikes I produced for it. I had the chance to play with generators, though.
+
+I built a couple of generator functions that yield the x and y positions when provided with their respective velocities and drag/gravity values. What's interesting about them is that both series are infinite but the x positions series locks into a fixed value after n iterations due to the fact that drag will get `vx` to 0 eventually.
+
+Dealing with infinite series makes iterating them much more interesting than normal lists. One has to think about them in terms of `take n elements from it` or `take elements while some condition is true`.
+
+```javascript
+function* xSeries(startVx, drag) {
+  let x = 0;
+  let vx = startVx;
+
+  while (true) {
+    const yieldValue = x;
+    x += vx;
+    vx = Math.max(0, vx - drag);
+    yield yieldValue;
+  }
+}
+
+function* ySeries(startVy, g) {
+  let y = 0;
+  let vy = startVy;
+
+  while (true) {
+    const yieldValue = y;
+    y += vy;
+    vy += g;
+    yield yieldValue;
+  }
+}
+
+function take(generator, count) {
+  const numbers = [];
+  while (numbers.length < count)
+    numbers.push(generator.next().value)
+  return numbers;
+}
+
+function takeWhile(generator, predicate) {
+  const numbers = [];
+  let number = generator.next().value;
+  while (predicate(number)) {
+    numbers.push(number)
+    number = generator.next().value;
+  }
+  return numbers;
+}
+```
+
+
