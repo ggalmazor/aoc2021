@@ -5,10 +5,7 @@ package com.github.ggalmazor.aoc2021;
 
 import static com.github.ggalmazor.aoc2021.lib.Input.readLines;
 
-import com.github.ggalmazor.aoc2021.day1.Day1;
-import com.github.ggalmazor.aoc2021.day2.Day2;
-import com.github.ggalmazor.aoc2021.day5.Day5;
-import com.github.ggalmazor.aoc2021.day8.Day8;
+import com.github.ggalmazor.aoc2021.day18.Day18;
 
 public class App {
   public static void main(String[] args) {
@@ -19,6 +16,9 @@ public class App {
 //    System.out.printf("Day 5 - Part 1: %d%n", new Day5.Part1().apply(readLines(5)));
 //    System.out.printf("Day 5 - Part 2: %d%n", new Day5.Part2().apply(readLines(5)));
 //    System.out.printf("Day 8 - Part 1: %d%n", new Day8.Part1().apply(readLines(8)));
-    System.out.printf("Day 8 - Part 2: %d%n", new Day8.Part2().apply(readLines(8)));
+//    System.out.printf("Day 8 - Part 2: %d%n", new Day8.Part2().apply(readLines(8)));
+//    System.out.printf("Day 18 - Part 1: %d%n", new Day18.Part1().apply(readLines(18)));
+    System.out.printf("Day 18 - Part 2: %d%n", new Day18.Part2().apply(readLines(18)));
+//    System.out.printf("Day 19 - Part 1: %d%n", new Day19.Part1().apply(readLines(19)));
   }
 }
